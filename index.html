@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> DISABLE THE BOMB </title>
+</head>
+<body>
+<canvas id="canvas" width="450" height="270"></canvas>
+<h1>DISABLE THE BOMB</h1>
+<p> Background: You take the role of Luo. This afternoon,</p>
+<p> you found a note on your desk. You remember your friend</p>
+<p> have a date in a desolate factory this evening and went</p>
+<p> to find him immediately. When you got there, he was </p>
+<p> handcuffed to a fixed cube. And the handcuff was connected</p>
+<p> to a bomb. Now, you have to disable the bomb to save him.</p>
+<p>And there is only 1 minute left</p>
+<button onclick="myFunction1()">Instruction 1</button>
+<button onclick="myFunction2()">Instruction 2</button>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+<script>
+// Show the instruction 1
+function myFunction1() {
+    alert("Instruction 1: First,cut all three color wires!!!");
+};
+
+// Set a countdown counter
+var seconds = 59;
+var speed = 1000;
+var span = document.createElement('span');
+$("body").append(span);
+function countDown(seconds,speed){
+    var txt = "00 : " + ((seconds < 10) ? "0" + seconds : seconds) + ": 00";
+    span.innerHTML = txt;
+    var timeId = setTimeout("countDown(seconds--,speed)",speed);
+    if(seconds == 0){
+     //alert("Time is up! Have you known the trap???Escape quickly!!!");
+     clearTimeout(timeId);
+    };
+};
+countDown(seconds,speed);
+
+// Add picture
+var Yuan = function (x,y){
+	this.x = x;
+	this.y = y;
+
+	var yuanHtml = '<img src="http://a2.qpic.cn/psb?/V12SCYIq16vuYq/Px8LbJUQ9qD6GFnn7x6IcsLzB6WtO7kM.88VRjkeY9c!/b/dHIBAAAAAAAA&bo=VgNQAgAAAAADByU!&rf=viewer_4">';
+	this.yuanElement = $(yuanHtml);
+	this.yuanElement.css({ 
+	position:"absolute",
+	left: this.x,
+	top: this.y
+	});
+	$("body").append(this.yuanElement);
+};
+var zhi = new Yuan(500,0);
+
+// Set up canvas
+var canvas = document.getElementById("canvas"); 
+var ctx = canvas.getContext("2d");
+// Get the width and height from the canvas element
+var width = canvas.width; 
+var height = canvas.height;
+// Work out the width and height in blocks
+var blockSize = 10;
+var widthInBlocks = width / blockSize; 
+var heightInBlocks = height / blockSize;
+// Draw the border
+ctx.fillStyle = "Gray";
+ctx.fillRect(0, 0, width, blockSize);
+ctx.fillRect(0, height - blockSize, width, blockSize); 
+ctx.fillRect(0, 0, blockSize, height); 
+ctx.fillRect(width - blockSize, 0, blockSize, height);
+ctx.fillRect(width - blockSize*3-90,0, blockSize, height)
+ctx.fill();
+
+// Draw the icon
+ctx.strokeStyle = "Crimson";
+ctx.lineWidth = 7;
+ctx.beginPath();
+ctx.moveTo(420,15);
+ctx.lineTo(420,75);
+ctx.moveTo(350,45);
+ctx.lineTo(400,15);
+ctx.moveTo(350,45);
+ctx.lineTo(400,75);
+ctx.moveTo(400,15);
+ctx.lineTo(400,75);
+ctx.stroke();
+ctx.strokeStyle = "ForestGreen";
+ctx.lineWidth = 7;
+ctx.beginPath();
+ctx.moveTo(420,105);
+ctx.lineTo(420,165);
+ctx.moveTo(350,105);
+ctx.lineTo(400,105);
+ctx.moveTo(350,105);
+ctx.lineTo(375,165);
+ctx.moveTo(400,105);
+ctx.lineTo(375,165);
+ctx.stroke();
+ctx.strokeStyle = "DarkBlue";
+ctx.lineWidth = 7;
+ctx.beginPath();
+ctx.moveTo(420,195);
+ctx.lineTo(420,255);
+ctx.moveTo(350,195);
+ctx.lineTo(400,225);
+ctx.moveTo(350,255);
+ctx.lineTo(400,225);
+ctx.moveTo(350,195);
+ctx.lineTo(350,255);
+ctx.stroke();
+// The String constructor
+var string  = function(x,c) {
+ctx.strokeStyle = c
+ctx.lineWidth = 7;
+ctx.beginPath();
+ctx.moveTo(x,90);
+ctx.quadraticCurveTo(x+20,120,x+10,180);
+ctx.stroke();
+};
+// Draw the strings
+string(40,"Crimson");
+string(80,"ForestGreen");
+string(120,"Crimson");
+string(160,"DarkBlue");
+string(200,"ForestGreen");
+string(240,"DarkBlue");
+string(280,"Crimson");
+// The cut function
+var cut = function(y) {
+ctx.clearRect(y,140,20,10);
+};
+// Connect key action with the cut
+
+$("body").keydown(function (event){
+ if (event.keyCode === 37 ){
+	cut(40);
+	cut(120);
+	cut(280);
+}	
+  else if (event.keyCode === 39){
+  cut(160);
+  cut(240);
+  }
+	else if (event.keyCode === 40){
+	cut(80);
+	cut(200);				
+	}
+	
+});
+
+// Show the instruction 2
+function myFunction2() {
+    newcanvas();
+    alert("Instruction 2: Make the choice now: cut which one???");
+}; 
+// Renew the canvas
+var newcanvas = function () {
+    ctx.clearRect(10,10,430,250);
+    string(150,"Crimson");
+    string(300,"DarkBlue");
+    ctx.font = "20px Georgia";
+    ctx.fillStyle = "Crimson";
+    ctx.fillText("R", 20, 50);
+    ctx.font = "20px Georgia";
+    ctx.fillStyle = "DarkBlue";
+    ctx.fillText("B", 410, 220);
+};
+// Connect key action with the bomb
+$("body").keydown(function (event){
+if (event.keyCode === 82 ){
+alert("BOMB!!!!You made the wrong choice!!!Watch DARKER to find the solution!!")
+}
+else if (event.keyCode === 66){
+alert("BOMB!!!!You made the wrong choice!!!Watch DARKER to find the solution!!")
+}	
+});
+
+</script>
+</body>
+</html>
