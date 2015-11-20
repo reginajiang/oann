@@ -32,7 +32,7 @@ function countDown(seconds,speed){
     span.innerHTML = txt;
     var timeId = setTimeout("countDown(seconds--,speed)",speed);
     if(seconds == 0){
-     //alert("Time is up! Have you known the trap???Escape quickly!!!");
+     alert("Time is up! Have you known the trap???Escape quickly!!!");
      clearTimeout(timeId);
     };
 };
